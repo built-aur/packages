@@ -1,0 +1,5 @@
+# Hosted on SourceForge via Proxy
+## Worldwide (Cloudflare)
+Server = https://built-aur.medzik.workers.dev/$arch
+## Germany
+Server = http://ct8.pl:54267/$arch
