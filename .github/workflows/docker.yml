@@ -1,0 +1,35 @@
+name: Build Docker Image
+
+on:
+  push:
+    paths:
+      - 'scripts/docker/**'
+
+  pull_request:
+    paths:
+      - 'scripts/docker/**'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to GitHub Container Registry
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'built-aur/packages'
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: docker build --tag "ghcr.io/${{ github.repository_owner }}/packages:latest" ./scripts/docker
+
+      - name: Push image
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'built-aur/packages'
+        run: docker push "ghcr.io/${{ github.repository_owner }}/packages:latest"

@@ -1,0 +1,35 @@
+name: Package updates
+
+on:
+  schedule:
+    - cron:  '*/30 * * * *'
+
+  workflow_dispatch:
+
+jobs:
+  update-packages:
+    if: github.repository == 'built-aur/packages'
+    runs-on: ubuntu-latest
+    container: ghcr.io/built-aur/packages:latest
+
+    steps:
+      - name: work around permission issue
+        run: git config --global --add safe.directory /__w/packages/packages
+
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PUSH_TOKEN }}
+
+      - name: Setup GIT
+        run: |
+          git config --global user.name "MedzikUserBot"
+          git config --global user.email "rm99iv9s@duck.com"
+
+      - name: Auto Update
+        run: ./scripts/auto-update.sh
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_COMMIT_PACKAGES: true
+          GIT_PUSH_PACKAGES: true
