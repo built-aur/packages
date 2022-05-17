@@ -56,7 +56,8 @@ built() {
       return ${EXIT_CODE}
     fi
   else
-    cp -r "${pkgdir}"/* "${BUILD_DIR}/${pkgname}"
+    mkdir "${BUILD_DIR}/${pkgname}"
+    cp -r "${pkgdir}"/* "${BUILD_DIR}/${pkgname}/"
   fi
 
   cd "${BUILD_DIR}/${pkgname}"
