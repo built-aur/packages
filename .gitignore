@@ -1,2 +1,11 @@
 # IDE config
 .vscode
+
+# source files
+*.tar*
+*.zip
+*.rar
+*.7z
+*.pacman
+*.deb
+*.AppImage

@@ -10,7 +10,7 @@ SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 source "${SCRIPT_DIR}/lib/parse-conf.sh"
 
 aur-version() {
-  curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${1}" | jq -r '.results[0].Version'
+  curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${1}" | jq -r '.results[0].LastModified'
 }
 
 gh-tag-version() {
@@ -37,7 +37,7 @@ update-package() {
   then
     if [ -n "${AUR_NAME}" ]
     then
-      local version="${AUR_VERSION}"
+      local version="${AUR_UPDATED}"
       local latest_version="$(aur-version ${AUR_NAME})"
 
       if [ "${version}" = "${latest_version}" ]
@@ -45,7 +45,7 @@ update-package() {
         return 0
       fi
 
-      sed -i "s|^\(AUR_VERSION=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/built.conf"
+      sed -i "s|^\(AUR_UPDATED=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/built.conf"
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
