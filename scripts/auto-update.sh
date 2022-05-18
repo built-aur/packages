@@ -52,6 +52,8 @@ update-package() {
         git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
       fi
 
+      echo "[i] Updated '${pkgname}' to '${latest_version}'"
+
       return 0
     fi
   fi
@@ -100,6 +102,8 @@ update-package() {
       then
         git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
       fi
+
+      echo "[i] Updated '${pkgname}' to '${latest_version}'"
 
       return 0
     fi
