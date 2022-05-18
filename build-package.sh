@@ -33,6 +33,19 @@ do
   touch "${PACKAGES_TO_BUILD_DIR}/${pkg}"
 done < "${SRC_DIR}/built_packages.txt"
 
+patches() {
+  pkgname="${1}"
+
+  if [ "${BUILD_ARCH}" = "x86-64-v3" ]
+  then
+    if [[ "${pkgname}" = "proton"* ]]
+    then
+      echo "[i] Proton patches"
+      sed -i 's|-march=nocona -mtune=core-avx2|-march=x86-64-v3|g' PKGBUILD
+    fi
+  fi
+}
+
 built() {
   pkgname="${1}"
   pkgdir="${SRC_DIR}/packages/${pkgname}"
@@ -62,6 +75,10 @@ built() {
 
   cd "${BUILD_DIR}/${pkgname}"
 
+  # run custom patches
+  echo "[i] Running custom patches..."
+  patches "${pkgname}"
+
   echo "[i] Installing dependencies..."
   for (( i=0; i<15; i++ ))
   do
@@ -80,7 +97,7 @@ built() {
   done
 
   # custom env for AUR packages
-  if [ "${pkgname}" = "linux-xanmod"* ]
+  if [[ "${pkgname}" = "linux-xanmod"* ]]
   then
     if [ "${BUILD_ARCH}" = "x86-64-v3" ]
     then
