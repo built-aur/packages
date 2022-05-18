@@ -2,7 +2,7 @@ name: Package updates
 
 on:
   schedule:
-    - cron:  '*/30 * * * *'
+    - cron:  '0 */1 * * *'
 
   workflow_dispatch:
 
