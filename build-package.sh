@@ -38,9 +38,9 @@ patches() {
 
   if [ "${BUILD_ARCH}" = "x86-64-v3" ]
   then
-    if [[ "${pkgname}" = "proton"* ]]
+    if [[ "${pkgname}" = "proton"* || "${pkgname}" = "dxvk-mingw" ]]
     then
-      echo "[i] Proton patches"
+      echo "[i] march patch"
       sed -i 's|-march=nocona -mtune=core-avx2|-march=x86-64-v3|g' PKGBUILD
     fi
   fi
