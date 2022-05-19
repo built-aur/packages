@@ -39,7 +39,7 @@ patches() {
   if [ "${BUILD_ARCH}" = "x86-64-v3" ]
   then
     case "${pkgname}" in
-      "proton"* | "dxvk-mingw" | "vkd3d-proton-mingw")
+      "proton"* | "dxvk-mingw" | "vkd3d-proton-mingw" | "wine-ge-custom")
         echo "[i] march patch"
         sed -i 's|-march=nocona -mtune=core-avx2|-march=x86-64-v3|g' PKGBUILD
         ;;
