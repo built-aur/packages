@@ -64,7 +64,7 @@ jobs:
           if [ -f ./built_packages.txt ]
           then
             printf "\n\nPackages Size:\n"
-            zstd -l ./pkgs/*.zst
+            xz -l ./pkgs/*.xz
           fi
 
       - name: Update file names
