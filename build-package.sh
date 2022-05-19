@@ -14,7 +14,7 @@ sudo chown -R $(id -u) /mnt/*
 
 # makepkg flags
 MAKEPKG_SYNCDEPS_FLAGS="--syncdeps --noconfirm --nobuild --noextract"
-MAKEPKG_BUILD_FLAGS="--rmdeps --clean --skippgpcheck --nocheck --nodeps --config /etc/makepkg.${BUILD_ARCH}.conf"
+MAKEPKG_BUILD_FLAGS="--rmdeps --clean --skippgpcheck --nocheck --config /etc/makepkg.${BUILD_ARCH}.conf"
 
 MAKEFLAGS="-j$(nproc)"
 
