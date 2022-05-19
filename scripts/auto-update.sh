@@ -49,6 +49,7 @@ update-package() {
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
+        git add "${pkgdir}/built.conf"
         git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
       fi
 
@@ -100,6 +101,7 @@ update-package() {
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
+        git add "${pkgdir}/PKGBUILD"
         git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
       fi
 
