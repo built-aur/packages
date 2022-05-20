@@ -72,7 +72,7 @@ update-package() {
         local latest_version="$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${GITHUB_REPO}/releases/latest" | jq -r ".tag_name")"
       fi
 
-      if [ -z "${latest_version}" ]
+      if [[ -z "${latest_version}" || "${latest_version}" = "null" ]]
       then
         echo "[!] Failed to get latest version of ${pkgname}"
         return 1
