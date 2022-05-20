@@ -54,6 +54,13 @@ patches() {
         ;;
     esac
   fi
+
+  case "${pkgname}" in
+    "winesync")
+      export _provide_nondkms=false
+      sed -i 's|_provide_nondkms=true|_provide_nondkms=false|g' PKGBUILD
+      ;;
+  esac
 }
 
 built() {
