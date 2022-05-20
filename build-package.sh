@@ -43,6 +43,15 @@ patches() {
         echo "[i] march patch"
         sed -i 's|-march=nocona -mtune=core-avx2|-march=x86-64-v3|g' PKGBUILD
         ;;
+      "linux-xanmod"*)
+        export _microarchitecture=93
+        ;;
+    esac
+  else
+    case "${pkgname}" in
+      "linux-xanmod"*)
+        export _microarchitecture=0
+        ;;
     esac
   fi
 }
@@ -96,17 +105,6 @@ built() {
       echo "==> Sychronizing dependencies... (attempt $i)"
     fi
   done
-
-  # custom env for AUR packages
-  if [[ "${pkgname}" = "linux-xanmod"* ]]
-  then
-    if [ "${BUILD_ARCH}" = "x86-64-v3" ]
-    then
-      export _microarchitecture=93
-    else
-      export _microarchitecture=0
-    fi
-  fi
 
   SOURCE_DATE_EPOCH=$(cat /etc/buildtime) BUILDDIR="${BUILD_DIR}/makepkg" PKGDEST="${OUT_DIR}" makepkg ${MAKEPKG_BUILD_FLAGS}
 
