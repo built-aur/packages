@@ -1,0 +1,15 @@
+post_install() {
+  /usr/share/codium-marketplace/patch.sh
+}
+
+pre_upgrade() {
+  /usr/share/codium-marketplace/patch.sh -R
+}
+
+post_upgrade() {
+  /usr/share/codium-marketplace/patch.sh
+}
+
+pre_remove() {
+  /usr/share/codium-marketplace/patch.sh -R
+}

@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = codium
+
+[Action]
+Description = [codium-marketplace] Patching product.json...
+Exec =  /usr/share/codium-marketplace/patch.sh
+When = PostTransaction
