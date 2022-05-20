@@ -9,18 +9,6 @@ SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 
 source "${SCRIPT_DIR}/lib/parse-conf.sh"
 
-aur-version() {
-  curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${1}" | jq -r '.results[0].LastModified'
-}
-
-gh-tag-version() {
-  curl --location --silent -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${1}/tags" | jq -r '.[0].name'
-}
-
-gh-version() {
-  curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${1}/releases/latest" | jq -r ".tag_name"
-}
-
 update-package() {
   local pkgdir="${1}"
   local pkgname="$(basename ${pkgdir})"
@@ -38,14 +26,15 @@ update-package() {
     if [ -n "${AUR_NAME}" ]
     then
       local version="${AUR_UPDATED}"
-      local latest_version="$(aur-version ${AUR_NAME})"
+      local latest_version="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].Version')"
+      local last_updated="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].LastModified')"
 
-      if [ "${version}" = "${latest_version}" ]
+      if [ "${version}" = "${last_updated}" ]
       then
         return 0
       fi
 
-      sed -i "s|^\(AUR_UPDATED=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/built.conf"
+      sed -i "s|^\(AUR_UPDATED=\)\(.*\)\$|\1\"${last_updated}\"|g" "${pkgdir}/built.conf"
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
@@ -67,7 +56,7 @@ update-package() {
       # check latest version
       if [ "${GITHUB_TAG}" = "true" ]
       then
-        local latest_version="$(gh-tag-version ${GITHUB_REPO})"
+        local latest_version="$(curl --location --silent -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${GITHUB_REPO}/tags" | jq -r '.[0].name')"
       else
         local latest_version="$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${GITHUB_REPO}/releases/latest" | jq -r ".tag_name")"
       fi
