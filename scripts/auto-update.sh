@@ -69,7 +69,13 @@ update-package() {
       then
         local latest_version="$(gh-tag-version ${GITHUB_REPO})"
       else
-        local latest_version="$(gh-version ${GITHUB_REPO})"
+        local latest_version="$(curl --silent --location -H "Authorization: token ${GITHUB_API_TOKEN}" "https://api.github.com/repos/${GITHUB_REPO}/releases/latest" | jq -r ".tag_name")"
+      fi
+
+      if [ -z "${latest_version}" ]
+      then
+        echo "[!] Failed to get latest version of ${pkgname}"
+        return 1
       fi
 
       custom_vars=$(
@@ -81,13 +87,13 @@ update-package() {
 
       # Translate "_" into ".": some packages use underscores to seperate
       # version numbers, but we require them to be separated by dots.
-      version=${latest_tag//_/.}
+      latest_version=${latest_version//_/.}
 
       # Remove leading 'v' or 'r'
-      version=${version#[v,r]}
+      latest_version=${latest_version#[v,r]}
 
       # Translate "-" into ".": pacman does not support - in pkgver
-      version=${version//-/.}
+      latest_version=${latest_version//-/.}
 
       if [ "${version}" = "${latest_version}" ]
       then
@@ -97,6 +103,7 @@ update-package() {
       sed -i "s|^\(pkgver=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/PKGBUILD"
 
       # Update package checksums
+      cd "${pkgdir}"
       updpkgsums
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
