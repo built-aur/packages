@@ -29,6 +29,12 @@ update-package() {
       local latest_version="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].Version')"
       local last_updated="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].LastModified')"
 
+      if [[ -z "${last_updated}" || "${last_updated}" = "null" ]]
+      then
+        echo "[!] Failed to get latest version of ${pkgname}"
+        return 1
+      fi
+
       if [ "${version}" = "${last_updated}" ]
       then
         return 0
