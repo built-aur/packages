@@ -118,6 +118,45 @@ update-package() {
 
       return 0
     fi
+
+    if [ -n "${NPM}" ]
+    then
+      local latest_version="$(curl --location --silent "https://unpkg.com/${NPM}/package.json" | jq -r ".version")"
+
+      if [[ -z "${latest_version}" || "${latest_version}" = "null" ]]
+      then
+        echo "[!] Failed to get latest version of ${pkgname}"
+        return 1
+      fi
+
+      custom_vars=$(
+        . "${pkgdir}/PKGBUILD"
+        echo "local version=${pkgver}"
+      )
+
+      eval "${custom_vars}"
+
+      if [ "${version}" = "${latest_version}" ]
+      then
+        return 0
+      fi
+
+      sed -i "s|^\(pkgver=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/PKGBUILD"
+
+      # Update package checksums
+      cd "${pkgdir}"
+      updpkgsums
+
+      if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
+      then
+        git add "${pkgdir}/PKGBUILD"
+        git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
+      fi
+
+      echo "[i] Updated '${pkgname}' to '${latest_version}'"
+
+      return 0
+    fi
   fi
 }
 

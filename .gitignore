@@ -3,6 +3,8 @@
 
 # source files
 *.tar*
+*.tgz
+*.part
 *.zip
 *.rar
 *.7z
