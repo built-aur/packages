@@ -25,9 +25,16 @@ update-package() {
   then
     if [ -n "${AUR_NAME}" ]
     then
+      if [ -n "${AUR_PKGBASE}" ]
+      then
+        local latest_version="latest"
+        local last_updated="$(git ls-remote --quiet https://aur.archlinux.org/${AUR_NAME}.git refs/heads/master | awk '{print $1}')"
+      else
+        local latest_version="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].Version')"
+        local last_updated="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].LastModified')"
+      fi
+
       local version="${AUR_UPDATED}"
-      local latest_version="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].Version')"
-      local last_updated="$(curl --location --silent "https://aur.archlinux.org/rpc/?v=5&type=info&arg=${AUR_NAME}" | jq -r '.results[0].LastModified')"
 
       if [[ -z "${last_updated}" || "${last_updated}" = "null" ]]
       then
