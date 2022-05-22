@@ -11,3 +11,6 @@
 *.pacman
 *.deb
 *.AppImage
+
+# GitHub wiki
+/wiki
