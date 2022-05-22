@@ -6,6 +6,7 @@
 : "${GIT_PUSH_PACKAGES:=false}"
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+SRC_DIR="$(realpath "$(dirname "${SCRIPT_DIR}")")"
 
 source "${SCRIPT_DIR}/lib/parse-conf.sh"
 
@@ -19,6 +20,8 @@ update-package() {
   fi
 
   eval "$(parse-conf ${pkgdir})"
+
+  cd "${SRC_DIR}"
 
   # check the package updates from AUR
   if [ ! -f "${pkgdir}/PKGBUILD" ]
@@ -106,7 +109,9 @@ update-package() {
 
       # Update package checksums
       cd "${pkgdir}"
-      updpkgsums
+      chown -R build .
+      su -c 'updpkgsums' build
+      cd "${SRC_DIR}"
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
@@ -145,7 +150,9 @@ update-package() {
 
       # Update package checksums
       cd "${pkgdir}"
-      updpkgsums
+      chown -R build .
+      su -c 'updpkgsums' build
+      cd "${SRC_DIR}"
 
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
