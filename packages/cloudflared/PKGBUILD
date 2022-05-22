@@ -8,7 +8,7 @@ url="https://github.com/cloudflare/cloudflared"
 license=('Apache')
 depends=('glibc')
 makedepends=('go')
-source=("${url}/archive/v${pkgver}.tar.gz")
+source=("${url}/archive/${pkgver}.tar.gz")
 sha256sums=('SKIP')
 
 build() {
