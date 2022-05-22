@@ -1,0 +1,24 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_pkgname='wrangler'
+pkgname='cloudflare-wrangler'
+pkgver="1.19.12"
+pkgrel=1
+pkgdesc='Command-line tool for working with Cloudflare Workers'
+arch=('any')
+url="https://github.com/cloudflare/wrangler"
+license=('Apache' 'MIT')
+makedepends=('cargo')
+source=("${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${_pkgname}-${pkgver}"
+  cargo build --release --locked
+}
+
+package() {
+  cd "${_pkgname}-${pkgver}"
+  install -Dm 755 target/release/${_pkgname} "$pkgdir/usr/bin/${_pkgname}"
+  install -Dm 644 LICENSE-APACHE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-APACHE"
+  install -Dm 644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-MIT"
+}
