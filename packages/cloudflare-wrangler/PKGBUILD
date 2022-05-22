@@ -2,9 +2,9 @@
 _pkgname='wrangler'
 pkgname='cloudflare-wrangler'
 pkgver="1.19.12"
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line tool for working with Cloudflare Workers'
-arch=('any')
+arch=('x86_64')
 url="https://github.com/cloudflare/wrangler"
 license=('Apache' 'MIT')
 makedepends=('cargo')
