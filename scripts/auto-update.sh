@@ -167,7 +167,7 @@ update-package() {
   fi
 }
 
-for pkgdir in ./packages/*
+for pkgdir in ./packages/* ./long-built/*
 do
   update-package "${pkgdir}"
 

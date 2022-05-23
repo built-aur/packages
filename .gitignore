@@ -14,3 +14,7 @@
 
 # GitHub wiki
 /wiki
+
+# Node.js
+node_modules
+/scripts/long-built/dist
