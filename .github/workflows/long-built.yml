@@ -69,6 +69,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
+
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
 
@@ -99,6 +111,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
 
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
@@ -133,6 +157,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
+
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
 
@@ -165,6 +201,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
 
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
@@ -199,6 +247,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
+
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
 
@@ -232,6 +292,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
+
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
 
@@ -264,6 +336,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Create SWAP
+        run: |
+          sudo fallocate -l 5G ./swapfile
+          sudo chmod 0600 ./swapfile
+          sudo mkswap ./swapfile
+          sudo swapon ./swapfile
+
+          sudo fallocate -l 3G /mnt/swapfile_3g
+          sudo chmod 0600 /mnt/swapfile_3g
+          sudo mkswap /mnt/swapfile_3g
+          sudo swapon /mnt/swapfile_3g
 
       - name: Setup Stage
         run: npm run setup --prefix ./scripts/long-built
