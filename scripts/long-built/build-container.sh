@@ -44,9 +44,6 @@ sudo chown build -R .
 su -c "makepkg --allsource --skippgpcheck" build
 mv ./*.src.tar.gz "${ROOT_DIR}"
 
-# librewolf
-sed -i 's|# mk_add_options MOZ_MAKE_FLAGS="-j4"|mk_add_options MOZ_MAKE_FLAGS="-j1"|g' PKGBUILD
-
 cd "${ROOT_DIR}"
 
 echo "::endgroup::"
