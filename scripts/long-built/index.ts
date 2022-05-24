@@ -90,7 +90,7 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
   }
 
   await core.group<UploadResponse>('Stage: Uploading progress...', () =>
-    artifact.uploadArtifact(github.context.job, readdirSync('progress').map(node => `progress/${node}`), 'progress'));
+    artifact.uploadArtifact(`${github.context.job}-${input.arch}`, readdirSync('progress').map(node => `progress/${node}`), 'progress'));
 
   if (input.finished)
     await core.group<UploadResponse>('Stage: Uploading package...', () =>

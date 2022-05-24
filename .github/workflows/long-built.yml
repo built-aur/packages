@@ -133,7 +133,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           package: packages-${{ matrix.arch }}
-          progress-name: stage-1
+          progress-name: stage-1-${{ matrix.arch }}
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -178,7 +178,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           package: packages-${{ matrix.arch }}
-          progress-name: stage-2
+          progress-name: stage-2-${{ matrix.arch }}
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -223,7 +223,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           package: packages-${{ matrix.arch }}
-          progress-name: stage-3
+          progress-name: stage-3-${{ matrix.arch }}
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -268,7 +268,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           package: packages-${{ matrix.arch }}
-          progress-name: stage-4
+          progress-name: stage-4-${{ matrix.arch }}
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -313,7 +313,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           package: packages-${{ matrix.arch }}
-          progress-name: stage-5
+          progress-name: stage-5-${{ matrix.arch }}
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
@@ -358,7 +358,7 @@ jobs:
         with:
           finished: "${{ join(needs.*.outputs.finished) }}"
           package: packages-${{ matrix.arch }}
-          progress-name: stage-6
+          progress-name: stage-6-${{ matrix.arch }}
           use-registry: true
           registry-token: "${{ secrets.GITHUB_TOKEN }}"
           image-tag: "${{ join(needs.*.outputs.image-tag) }}"
