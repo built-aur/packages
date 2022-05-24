@@ -16,4 +16,4 @@ https://aur.archlinux.org/[...].git
 
 **Have you checked if the package builds in a clean chroot?**
 
-[] Yes
+- [ ] Yes
