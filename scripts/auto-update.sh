@@ -167,6 +167,13 @@ update-package() {
   fi
 }
 
+if [ -n "${1}" ]
+then
+  update-package "./packages/${1}"
+  update-package "./long-built/${1}"
+  exit 0
+fi
+
 for pkgdir in ./packages/* ./long-built/*
 do
   update-package "${pkgdir}"
