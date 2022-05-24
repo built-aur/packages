@@ -1,4 +1,4 @@
-FROM ghcr.io/archlinux-pkg/packages:latest
+FROM ghcr.io/built-aur/packages:latest
 
 ARG PACKAGE
 ENV PACKAGE=$PACKAGE

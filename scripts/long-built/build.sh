@@ -9,13 +9,10 @@ export HOME="/home/build"
 # makepkg arguments
 BUILD_ARGUMENTS="--skippgpcheck --config /etc/makepkg.${BUILD_ARCH}.conf"
 
-# librewolf
-sed -i 's|# mk_add_options MOZ_MAKE_FLAGS="-j4"|mk_add_options MOZ_MAKE_FLAGS="-j1"|g' PKGBUILD
-
 # unpack compilation files from previous stage
 unpack_stage() {
   echo "==> Extracting source archive..."
-  sudo tar -xf /mnt/input/progress.tar.zst -C "$ROOT_DIR"
+  sudo tar -xf /mnt/input/progress.tar.zst -C "${ROOT_DIR}"
 
   echo "==> Deleting source archive..."
   sudo rm /mnt/input/*
