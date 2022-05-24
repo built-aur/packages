@@ -82,7 +82,7 @@ const shell = async (commandLine: string, args?: Array<string>, options?: ExecOp
   const mount = (directory: string): Array<string> => ['--mount', `type=bind,source=${process.cwd()}/${directory},target=/mnt/${directory}`];
 
   await core.group<void>('Stage: Running docker container...', () =>
-    shell('docker', ['run', '-e', 'TIMEOUT=330', '-e', `BUILD_ARCH=${input.arch}`, '--memory="5g"', ...mount('input'), ...mount('output'), ...mount('progress'), input.imageTag]));
+    shell('docker', ['run', '-e', 'TIMEOUT=330', '-e', `BUILD_ARCH=${input.arch}`, '--memory=5g', ...mount('input'), ...mount('output'), ...mount('progress'), input.imageTag]));
 
   if (readdirSync('output').length !== 0) {
     console.log('Stage: Successfully built package');
