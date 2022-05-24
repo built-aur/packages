@@ -10,6 +10,15 @@ SRC_DIR="$(realpath "$(dirname "${SCRIPT_DIR}")")"
 
 source "${SCRIPT_DIR}/lib/parse-conf.sh"
 
+compare_version() {
+  if $(${SCRIPT_DIR}/compare-versions.py "${1}" "${2}")
+  then
+    return 0 # true - update needed
+  else
+    return 1 # false - update not needed
+  fi
+}
+
 update-package() {
   local pkgdir="${1}"
   local pkgname="$(basename ${pkgdir})"
@@ -100,7 +109,7 @@ update-package() {
       # Translate "-" into ".": pacman does not support - in pkgver
       latest_version=${latest_version//-/.}
 
-      if [ "${version}" = "${latest_version}" ]
+      if ! $(compare_version "${version}" "${latest_version}")
       then
         return 0
       fi
@@ -141,7 +150,7 @@ update-package() {
 
       eval "${custom_vars}"
 
-      if [ "${version}" = "${latest_version}" ]
+      if ! $(compare_version "${version}" "${latest_version}")
       then
         return 0
       fi
