@@ -2,7 +2,7 @@
 _pkgname='kotlin'
 pkgname='kotlin-native'
 pkgver="1.6.21"
-pkgrel=1
+pkgrel=2
 pkgdesc='An LLVM based backend for the Kotlin compiler and native implementation of the Kotlin standard library'
 arch=('x86_64')
 url="https://github.com/JetBrains/kotlin"
@@ -27,7 +27,9 @@ build() {
 }
 
 package() {
-  cd "${_pkgname}-${pkgver}/"
+  cd "${_pkgname}-${pkgver}"
+
+  install -Dm 644 "license/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
   cd 'kotlin-native'
 
