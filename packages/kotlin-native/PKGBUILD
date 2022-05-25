@@ -1,0 +1,47 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+_pkgname='kotlin'
+pkgname='kotlin-native'
+pkgver="1.6.21"
+pkgrel=1
+pkgdesc='An LLVM based backend for the Kotlin compiler and native implementation of the Kotlin standard library'
+arch=('x86_64')
+url="https://github.com/JetBrains/kotlin"
+license=('Apache')
+depends=("java-environment" "ncurses5-compat-libs")
+source=("${url}/archive/v${pkgver}.tar.gz"
+        "local.properties")
+sha256sums=('SKIP'
+            'SKIP')
+options=("staticlibs" "libtool" "!strip")
+
+prepare() {
+  cd "${_pkgname}-${pkgver}"
+
+  # Copy local.properties
+  cp "${srcdir}/local.properties" "./local.properties"
+}
+
+build() {
+  cd "${_pkgname}-${pkgver}"
+  ./gradlew :kotlin-native:bundle
+}
+
+package() {
+  cd "${_pkgname}-${pkgver}/"
+
+  cd 'kotlin-native'
+
+  install -m 755 -d "${pkgdir}/opt/kotlin-native/"
+  install -m 755 -d "${pkgdir}/usr/bin/"
+
+  cp -R "kotlin-native/dist" "${pkgdir}/opt/kotlin-native/"
+
+  ln -s "/opt/kotlin-native/bin/cinterop" "${pkgdir}/usr/bin/cinterop"
+  ln -s "/opt/kotlin-native/bin/generate-platform" "${pkgdir}/usr/bin/generate-platform"
+  ln -s "/opt/kotlin-native/bin/jsinterop" "${pkgdir}/usr/bin/jsinterop"
+  ln -s "/opt/kotlin-native/bin/klib" "${pkgdir}/usr/bin/klib"
+  ln -s "/opt/kotlin-native/bin/konanc" "${pkgdir}/usr/bin/konanc"
+  ln -s "/opt/kotlin-native/bin/konan-lldb" "${pkgdir}/usr/bin/konan-lldb"
+  ln -s "/opt/kotlin-native/bin/kotlin-native" "${pkgdir}/usr/bin/kotlinc-native"
+  ln -s "/opt/kotlin-native/bin/run_konan" "${pkgdir}/usr/bin/run_konan"
+}
