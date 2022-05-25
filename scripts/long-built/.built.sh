@@ -13,6 +13,8 @@
 # Outputs
 # finished - build ended?
 
+set -e -x
+
 free_space() {
   echo "::group::Stage: Free space on GitHub Runner..."
   sudo rm -rf /usr/share/dotnet
@@ -39,11 +41,7 @@ download_progress() {
 
 upload_progress() {
   echo "::group::Stage: Downloading progress artifact..."
-  SSHPASS="${SFTP_PASSWORD}" sshpass -e rsync -e ssh -avL "${SFTP_USER}@${SFTP_HOST}:${SFTP_CWD}/stage/" progress.tar.zst
-  echo "::endgroup::"
-
-  echo "::group::Stage: Moving progress archive into input directory..."
-  mv progress.tar.zst input
+  SSHPASS="${SFTP_PASSWORD}" sshpass -e rsync -e ssh -avL "${SFTP_USER}@${SFTP_HOST}:${SFTP_CWD}/stage/" progress/progress.tar.zst
   echo "::endgroup::"
 }
 
@@ -80,6 +78,8 @@ if [ -z "$(ls -A output)" ]
 then
   # Directory is empty
   echo "::set-output name=finished::false"
+
+  upload_progress
 else
   echo "Successfully built package"
 
