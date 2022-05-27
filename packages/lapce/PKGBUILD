@@ -14,7 +14,7 @@ options=('!lto')
 
 build() {
   cd "${pkgname}-${pkgver}"
-  cargo build --release --locked --profile release-lto
+  cargo build --locked --profile release-lto
 }
 
 package() {
