@@ -1,0 +1,23 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='lapce'
+pkgver="0.1.1"
+pkgrel=1
+pkgdesc='Lightning-fast and Powerful Code Editor written in Rust '
+arch=('x86_64')
+url="https://github.com/lapce/lapce"
+license=('Apache')
+depends=('gcc-libs' 'libxcb' 'expat' 'freetype2' 'libxkbcommon' 'fontconfig' 'gtk3')
+makedepends=('rust' 'python' 'cmake')
+source=("${url}/archive/${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  cargo build --release --locked --profile release-lto
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm 755 target/release/${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
