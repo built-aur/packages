@@ -27,6 +27,9 @@ jobs:
           git config --global user.name "MedzikUserBot"
           git config --global user.email "rm99iv9s@duck.com"
 
+      - name: Install python
+        run: pacman -Syu --noconfirm python python-setuptools
+
       - name: Auto Update
         run: ./scripts/auto-update.sh
         env:
