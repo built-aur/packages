@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='imgcomp'
 pkgver="0.1.1"
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross platform image compressing tool'
 arch=('x86_64')
 url="https://github.com/rafi612/imgcomp"
