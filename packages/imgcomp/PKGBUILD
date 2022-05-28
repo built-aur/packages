@@ -1,0 +1,31 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='imgcomp'
+pkgver='0.1.0'
+pkgrel=1
+pkgdesc='Cross platform image compressing tool'
+arch=('x86_64')
+url="https://github.com/rafi612/imgcomp"
+license=('MIT')
+makedepends=('cmake' 'git')
+source=("${pkgname}::git+${url}#tag=${pkgver}")
+sha256sums=('SKIP')
+
+prepare() {
+  mkdir "${pkgname}/build"
+
+  cd "${pkgname}"
+  git submodule init
+  git submodule update
+}
+
+build() {
+  cd "${pkgname}/build"
+  cmake ..
+  make
+}
+
+package() {
+  cd "${pkgname}/build"
+  make DESTDIR="${pkgdir}" install
+  install -Dm 644 "${srcdir}/${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
