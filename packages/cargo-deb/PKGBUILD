@@ -1,0 +1,22 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='cargo-deb'
+pkgver="1.38.0"
+pkgrel=1
+pkgdesc='Cargo subcommand that generates Debian packages'
+arch=('x86_64')
+url="https://github.com/kornelski/cargo-deb"
+license=('MIT')
+makedepends=('cargo')
+source=("${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  cargo build --release --locked
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm 755 target/release/${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 LICENSE-MIT "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
