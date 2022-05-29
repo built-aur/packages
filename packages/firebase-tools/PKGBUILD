@@ -1,0 +1,26 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='firebase-tools'
+pkgver="11.0.1"
+pkgrel=1
+pkgdesc='The Firebase Command Line Tools'
+arch=('any')
+url="https://www.npmjs.com/package/${pkgname}"
+license=('MIT')
+depends=('nodejs')
+makedepends=('npm')
+_file="${pkgname}-${pkgver}.tgz"
+source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
+noextract=("${_file}")
+sha256sums=('SKIP')
+
+package() {
+  npm install -g --prefix "${pkgdir}/usr" "${_file}"
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "${pkgdir}"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "${pkgdir}"
+}
