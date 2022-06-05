@@ -2,7 +2,7 @@
 name: Package Request
 about: Request a new package
 title: "[Request]"
-labels: package-request
+labels: request:new-pkg
 assignees: MedzikUser
 
 ---
