@@ -61,7 +61,7 @@ patches() {
       sed -i 's|_provide_nondkms=true|_provide_nondkms=false|g' PKGBUILD
       ;;
       "unreal-engine")
-        (echo "${GITHUB_TOKEN}"; echo) | git clone "https://github.com/EpicGames/UnrealEngine.git" unreal-engine
+        git clone "https://${GITHUB_TOKEN}@github.com/EpicGames/UnrealEngine.git" unreal-engine --branch release --depth 1
         ;;
   esac
 }
