@@ -1,6 +1,8 @@
 #!/bin/bash
 
 free_space() {
+  set +x
+
   case "${1}" in
     "unreal-engine")
       echo "Free space..."
@@ -18,7 +20,9 @@ free_space() {
       # Remove docker image
       docker rmi $(docker image ls -aq)
       ;;
-    esac
+  esac
+
+  set -x
 }
 
 if [ "${github_event}" != "workflow_dispatch" ]
