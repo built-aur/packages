@@ -65,6 +65,25 @@ then
 else
   for pkg in ${github_inputs_packages}
   do
+    case "${pkgname}" in
+      "unreal-engine")
+        echo "Free space..."
+        # rm boost & tools
+        sudo rm -rf "/usr/local/share/boost"
+        # rm dotnet
+        sudo rm -rf '/usr/share/dotnet'
+        # rm android sdk
+        sudo rm -rf "${ANDROID_SDK_ROOT}"
+        sudo rm -rf '/usr/local/lib/android'
+        # rm swift
+        sudo rm -rf "${SWIFT_PATH}"
+        sudo rm -rf '/usr/share/swift'
+
+        # Remove docker image
+        docker rmi $(docker image ls -aq)
+        ;;
+    esac
+
     echo "${pkg}" >> ./built_packages.txt
   done
 fi
