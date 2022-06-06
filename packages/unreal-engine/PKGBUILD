@@ -20,8 +20,8 @@ _install_dir="opt/${pkgname}"
 
 prepare() {
   git clone "https://${GITHUB_AUTHOR}:${GITHUB_TOKEN}@github.com/EpicGames/UnrealEngine.git" "${pkgname}" --branch "${pkgver}-release" --depth 1
-
   cd "${pkgname}"
+  rm -rf .git
   ./Setup.sh
 }
 
