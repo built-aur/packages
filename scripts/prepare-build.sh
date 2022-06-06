@@ -1,5 +1,26 @@
 #!/bin/bash
 
+free_space() {
+  case "${1}" in
+    "unreal-engine")
+      echo "Free space..."
+      # rm boost & tools
+      sudo rm -rf "/usr/local/share/boost"
+      # rm dotnet
+      sudo rm -rf '/usr/share/dotnet'
+      # rm android sdk
+      sudo rm -rf "${ANDROID_SDK_ROOT}"
+      sudo rm -rf '/usr/local/lib/android'
+      # rm swift
+      sudo rm -rf "${SWIFT_PATH}"
+      sudo rm -rf '/usr/share/swift'
+
+      # Remove docker image
+      docker rmi $(docker image ls -aq)
+      ;;
+    esac
+}
+
 if [ "${github_event}" != "workflow_dispatch" ]
 then
   BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "${GITHUB_EVENT_PATH}")
@@ -57,6 +78,7 @@ then
       if [ ! -d "packages/${pkg}" ]; then
         echo "${pkg}" >> ./deleted_packages.txt
       else
+        free_space "${pkg}"
         echo "${pkg}" >> ./built_packages.txt
       fi
     fi
@@ -65,25 +87,7 @@ then
 else
   for pkg in ${github_inputs_packages}
   do
-    case "${pkgname}" in
-      "unreal-engine")
-        echo "Free space..."
-        # rm boost & tools
-        sudo rm -rf "/usr/local/share/boost"
-        # rm dotnet
-        sudo rm -rf '/usr/share/dotnet'
-        # rm android sdk
-        sudo rm -rf "${ANDROID_SDK_ROOT}"
-        sudo rm -rf '/usr/local/lib/android'
-        # rm swift
-        sudo rm -rf "${SWIFT_PATH}"
-        sudo rm -rf '/usr/share/swift'
-
-        # Remove docker image
-        docker rmi $(docker image ls -aq)
-        ;;
-    esac
-
+    free_space "${pkg}"
     echo "${pkg}" >> ./built_packages.txt
   done
 fi
