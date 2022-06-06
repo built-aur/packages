@@ -1,0 +1,52 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='unreal-engine'
+pkgver="5.0.2"
+pkgrel=1
+pkgdesc='A 3D game engine by Epic Games which can be used non-commercially for free.'
+arch=('x86_64')
+url='https://www.unrealengine.com'
+depends=('icu' 'sdl2' 'python' 'lld' 'xdg-user-dirs' 'dos2unix')
+makedepends=('git' 'openssh' 'clang')
+optdepends=('qt5-base: qmake build system for projects'
+            'cmake: build system for projects'
+            'qtcreator: IDE for projects'
+            'codelite: IDE for projects'
+            'kdevelop: IDE for projects'
+            'clion: IDE for projects')
+license=('custom:UnrealEngine')
+source=("com.unrealengine.UE4Editor.desktop"
+        "${pkgname}")
+sha256sums=('SKIP')
+_install_dir="opt/${pkgname}"
+
+prepare() {
+  cd "${pkgname}"
+  ./Setup.sh
+  ./GenerateProjectFiles.sh
+}
+
+build() {
+  cd "${pkgname}"
+  make
+}
+
+package() {
+  # Desktop entry
+  install -Dm 775 com.unrealengine.UE4Editor.desktop "${pkgdir}/usr/share/applications/com.unrealengine.UE4Editor.desktop"
+
+  cd "${pkgname}"
+
+  # Icon for Desktop entry
+  install -Dm770 Engine/Source/Programs/UnrealVS/Resources/Preview.png "${pkgdir}/usr/share/pixmaps/ue4editor.png"
+
+  # License
+  install -Dm770 LICENSE.md "${pkgdir}/usr/share/licenses/UnrealEngine/LICENSE.md"
+
+  ls -lah .
+
+  ls -lah *
+
+  # Engine
+  install -dm770 "${pkgdir}/${_install_dir}/Engine"
+  mv LocalBuilds/Engine/Linux/* "${pkgdir}/${_install_dir}"
+}

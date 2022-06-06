@@ -60,6 +60,9 @@ patches() {
       export _provide_nondkms=false
       sed -i 's|_provide_nondkms=true|_provide_nondkms=false|g' PKGBUILD
       ;;
+      "unreal-engine")
+        (echo "${GITHUB_TOKEN}"; echo) | git clone "https://github.com/EpicGames/UnrealEngine.git" unreal-engine
+        ;;
   esac
 }
 

@@ -50,6 +50,7 @@ jobs:
             ./scripts/run-docker.sh
           fi
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           github_event: ${{ github.event_name }}
           github_inputs_packages: ${{ github.event.inputs.packages }}
           BUILD_ARCH: ${{ matrix.arch }}
