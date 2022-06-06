@@ -17,6 +17,7 @@ echo "::endgroup::"
 
 sudo docker run \
   --env BUILD_ARCH="${BUILD_ARCH}" \
+  --env GITHUB_TOKEN="${GITHUB_TOKEN}" \
   --mount type=bind,source="${SRC_DIR}",target=/mnt/src \
   --mount type=bind,source="${OUT_DIR}",target=/mnt/out \
   --mount type=bind,source="${HOME_DIR}",target=/mnt/home \
