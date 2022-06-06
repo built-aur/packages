@@ -20,6 +20,8 @@ sha256sums=('SKIP')
 _install_dir="opt/${pkgname}"
 
 prepare() {
+  git clone "https://${GITHUB_AUTHOR}:${GITHUB_TOKEN}@github.com/EpicGames/UnrealEngine.git" "${pkgver}-${pkgname}" --branch release --depth 1
+
   cd "${pkgname}"
   ./Setup.sh
   ./GenerateProjectFiles.sh
