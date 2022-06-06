@@ -14,8 +14,7 @@ optdepends=('qt5-base: qmake build system for projects'
             'kdevelop: IDE for projects'
             'clion: IDE for projects')
 license=('custom:UnrealEngine')
-source=("com.unrealengine.UE4Editor.desktop"
-        "${pkgname}")
+source=("com.unrealengine.UE4Editor.desktop")
 sha256sums=('SKIP')
 _install_dir="opt/${pkgname}"
 
