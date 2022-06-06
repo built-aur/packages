@@ -23,12 +23,11 @@ prepare() {
 
   cd "${pkgname}"
   ./Setup.sh
-  ./GenerateProjectFiles.sh
 }
 
 build() {
   cd "${pkgname}"
-  make
+  Engine/Build/BatchFiles/RunUAT.sh BuildGraph -target="Make Installed Build Linux" -script=Engine/Build/InstalledEngineBuild.xml -set:WithDDC=false -set:HostPlatformOnly=true
 }
 
 package() {

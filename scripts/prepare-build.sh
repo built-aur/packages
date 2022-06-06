@@ -16,6 +16,8 @@ free_space() {
       # rm swift
       sudo rm -rf "${SWIFT_PATH}"
       sudo rm -rf '/usr/share/swift'
+      # rm haskell
+      sudo rm -rf '/opt/ghc'
 
       # Remove docker image
       docker rmi $(docker image ls -aq)
