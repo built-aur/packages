@@ -1,5 +1,8 @@
 # Build AUR
 
+![uptimerobot status](https://img.shields.io/uptimerobot/status/m791943104-66353e8e39c1aa9320c0ddbd)
+![uptime ratio 30 days](https://img.shields.io/uptimerobot/ratio/m791943104-66353e8e39c1aa9320c0ddbd)
+
 ## How to use?
 
 First, install the primary key - it can then be used to install our mirrorlist
