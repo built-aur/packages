@@ -1,16 +1,16 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='built-mirrorlist'
-pkgver=2022.5.19
-pkgrel=2
+pkgver=2022.6.14
+pkgrel=1
 pkgdesc='Built AUR mirrorlist to use with Pacman'
 arch=('any')
-url='https://built-aur.medzik.workers.dev'
+url='https://built.medzik.xyz'
 license=('unknow')
 backup=('etc/pacman.d/mirrorlist-medzikuser')
 source=('mirrorlist'
         'mirrorlist-x86-64-v3')
-sha256sums=('d4064591939c82691f50ce2cc845c0094d0fa3fc1b5548429bb2992a972a483d'
-            '85b6f1f5a0d116781a0b8ecd9f34311395cfdb259ad5fa4ccafa1c1fc6cf7b20')
+sha256sums=('f7af20595dc08990efa96e1a9ec5a620f4e000c6d9fc34ce82d1fad7c3302128'
+            '0aa9cfee8bf3ac4be5c257f5b1097d2f160bd10e0b31e4450224579ff5f3be6d')
 
 package() {
   mkdir -p "${pkgdir}/etc/pacman.d"
