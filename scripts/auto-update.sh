@@ -115,6 +115,7 @@ update-package() {
       fi
 
       sed -i "s|^\(pkgver=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/PKGBUILD"
+      sed -i "s|^\(pkgrel=\)\(.*\)\$|\11|g" "${pkgdir}/PKGBUILD"
 
       # Update package checksums
       cd "${pkgdir}"
@@ -156,6 +157,7 @@ update-package() {
       fi
 
       sed -i "s|^\(pkgver=\)\(.*\)\$|\1\"${latest_version}\"|g" "${pkgdir}/PKGBUILD"
+      sed -i "s|^\(pkgrel=\)\(.*\)\$|\11|g" "${pkgdir}/PKGBUILD"
 
       # Update package checksums
       cd "${pkgdir}"
