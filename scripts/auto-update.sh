@@ -78,6 +78,33 @@ update-package() {
 
   if [ -f "${pkgdir}/built.conf" ]
   then
+    # if package has a AUR_PUSH flag push it to AUR
+    if [ -n "${AUR_PUSH}" ]
+    then
+      git clone "ssh://aur@aur.archlinux.org/${AUR_PUSH}.git" "${TMP_DIR}/aur/${AUR_PUSH}"
+
+      mkdir -p "${TMP_DIR}/aur/${AUR_PUSH}" || true
+
+      cd "${TMP_DIR}/aur/${AUR_PUSH}"
+
+      # delete old files
+      rm -rf *
+
+      # copy new files
+      cp -r "${pkgdir}/*" .
+
+      # generate .SRCINFO
+      makepkg --printsrcinfo > .SRCINFO
+
+      # delete built config
+      rm -rf 'built.conf'
+
+      # commit and push package to AUR
+      git add .
+      git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
+      git push
+    fi
+
     # check the package updates from github
     if [ -n "${GITHUB_REPO}" ]
     then
@@ -133,30 +160,6 @@ update-package() {
       fi
 
       echo "[i] Updated '${pkgname}' to '${latest_version}'"
-
-      if [ -n "${AUR_PUSH}" ]
-      then
-        git clone "ssh://aur@aur.archlinux.org/${AUR_PUSH}.git" "${TMP_DIR}/aur/${AUR_PUSH}"
-
-        cd "${TMP_DIR}/aur/${AUR_PUSH}"
-
-        # delete old files
-        rm -rf *
-
-        # copy new files
-        cp -r "${pkgdir}/*" .
-
-        # generate .SRCINFO
-        makepkg --printsrcinfo > .SRCINFO
-
-        # delete built config
-        rm -rf 'built.conf'
-
-        # commit and push package to AUR
-        git add .
-        git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
-        git push
-      fi
 
       return 0
     fi
