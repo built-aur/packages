@@ -6,7 +6,7 @@ pkgdesc='Command line application as an alternative to the ReVanced Manager'
 arch=('any')
 url="https://github.com/revanced/revanced-cli"
 license=('GPL3')
-depends=('java-environment')
+depends=('java-environment' 'revanced-patches')
 install='revanced-cli.install'
 source=("${pkgname}.sh"
         "${url}/releases/download/v${pkgver}/revanced-cli-${pkgver}-all.jar"
