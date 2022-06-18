@@ -30,6 +30,13 @@ jobs:
       - name: Install python
         run: pacman -Syu --noconfirm python python-setuptools
 
+      - name: Setup SSH Keys
+        run: |
+          ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+
       - name: Auto Update
         run: ./scripts/auto-update.sh
         env:

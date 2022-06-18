@@ -7,6 +7,9 @@
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 SRC_DIR="$(realpath "$(dirname "${SCRIPT_DIR}")")"
+TMP_DIR="$(mktemp -d -t medzik-aur-XXXX)"
+
+mkdir "${TMP_DIR}/aur"
 
 source "${SCRIPT_DIR}/lib/parse-conf.sh"
 
@@ -130,6 +133,30 @@ update-package() {
       fi
 
       echo "[i] Updated '${pkgname}' to '${latest_version}'"
+
+      if [ -n "${AUR_PUSH}" ]
+      then
+        git clone "ssh://aur@aur.archlinux.org/${AUR_PUSH}.git" "${TMP_DIR}/aur/${AUR_PUSH}"
+
+        cd "${TMP_DIR}/aur/${AUR_PUSH}"
+
+        # delete old files
+        rm -rf *
+
+        # copy new files
+        cp -r "${pkgdir}/*" .
+
+        # generate .SRCINFO
+        makepkg --printsrcinfo > .SRCINFO
+
+        # delete built config
+        rm -rf 'built.conf'
+
+        # commit and push package to AUR
+        git add .
+        git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
+        git push
+      fi
 
       return 0
     fi
