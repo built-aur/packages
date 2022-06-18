@@ -10,4 +10,4 @@ chown -vR build:build /home/build
 chmod -vR 600 /home/build/.ssh/*
 echo '::endgroup::'
 
-exec su -c 'bash -c ./scripts/publish-aur.sh' build
+exec su -c 'bash -c ./scripts/push-aur.sh' build
