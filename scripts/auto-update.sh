@@ -105,6 +105,8 @@ update-package() {
       git push
     fi
 
+    cd "${SRC_DIR}"
+
     # check the package updates from github
     if [ -n "${GITHUB_REPO}" ]
     then
