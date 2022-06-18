@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -o errexit -o pipefail -o nounset
+#set -o errexit -o pipefail
 
 # Commit changes to Git.
 : "${GIT_COMMIT_PACKAGES:=false}"
@@ -34,7 +34,7 @@ git config --global user.name "${COMMIT_USER}"
 git config --global user.email "${COMMIT_EMAIL}"
 echo '::endgroup::'
 
-push() {
+push-aur() {
   local pkgdir="${1}"
   local pkgname="$(basename ${pkgdir})"
 
@@ -56,13 +56,15 @@ push() {
 
     if [ -n "${AUR_PUSH}" ]
     then
+      echo "==> ${pkgname}"
+
       echo '::group::Cloning AUR package into /tmp/local-repo'
-      git clone -v "https://aur.archlinux.org/${pkgname}.git" /tmp/local-repo
+      git clone -v "ssh://aur@aur.archlinux.org/${pkgname}.git" /tmp/local-repo
       echo '::endgroup::'
 
       echo '::group::Copying files into /tmp/local-repo'
       cp -r "${pkgdir}"/* /tmp/local-repo/
-      rm -rf /tmp/local-repo//build.yml
+      rm -rf /tmp/local-repo/build.conf
       echo '::endgroup::'
 
       echo '::group::Generating .SRCINFO'
@@ -78,32 +80,18 @@ push() {
       echo '::group::Push package to AUR'
       git push -v origin master
       echo '::endgroup::'
+
+      echo '::group::Cleanup'
+      rm -rf /tmp/local-repo/
+      echo '::endgroup::'
       return 0
     fi
   fi
 }
 
-if [ -n "${1}" ]
-then
-  update-package "./packages/${1}"
-  update-package "./long-built/${1}"
-  exit 0
-fi
-
 for pkgdir in ./packages/* ./long-built/*
 do
-  push "${pkgdir}"
-
-  EXIT_CODE="${?}"
-
-  if ! (( ${EXIT_CODE} ))
-  then
-    if [ "${GIT_PUSH_PACKAGES}" = "true" ]
-    then
-      git pull --rebase &> /dev/null
-      git push &> /dev/null
-    fi
-  else
-    echo "[!] Failed to update package '$(basename ${pkgdir})'"
-  fi
+  echo "==> Running: $(basename ${pkgdir})"
+  push-aur "${pkgdir}" &
+  wait
 done
