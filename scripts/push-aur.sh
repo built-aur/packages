@@ -64,7 +64,7 @@ push-aur() {
 
       echo '::group::Copying files into /tmp/local-repo'
       cp -r "${pkgdir}"/* /tmp/local-repo/
-      rm -rf /tmp/local-repo/build.conf
+      rm -rf /tmp/local-repo/built.conf
       echo '::endgroup::'
 
       echo '::group::Generating .SRCINFO'
