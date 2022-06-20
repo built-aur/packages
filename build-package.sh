@@ -7,7 +7,9 @@ OUT_DIR="/mnt/out"
 TMP_DIR="$(mktemp -d -t medzik-aur-XXXX)"
 SCRIPT_DIR="$(realpath "$(dirname "$0")"/scripts)"
 
+# load lib
 source "${SCRIPT_DIR}/lib/parse-conf.sh"
+source "${SCRIPT_DIR}/lib/build/patches.sh"
 
 # change owner of the directories in /mnt to the current user
 sudo chown -R $(id -u) /mnt/*
@@ -30,38 +32,8 @@ mkdir -p "${PACKAGES_TO_BUILD_DIR}"
 # check which packages to build
 while IFS= read -r pkg
 do
-  touch "${PACKAGES_TO_BUILD_DIR}/${pkg}"
+  built "${pkg}"
 done < "${SRC_DIR}/built_packages.txt"
-
-patches() {
-  pkgname="${1}"
-
-  if [ "${BUILD_ARCH}" = "x86-64-v3" ]
-  then
-    case "${pkgname}" in
-      "proton"* | "dxvk-mingw" | "vkd3d-proton-mingw" | "wine-ge-custom")
-        echo "[i] march patch"
-        sed -i 's|-march=nocona -mtune=core-avx2|-march=x86-64-v3|g' PKGBUILD
-        ;;
-      "linux-xanmod"*)
-        export _microarchitecture=93
-        ;;
-    esac
-  else
-    case "${pkgname}" in
-      "linux-xanmod"*)
-        export _microarchitecture=0
-        ;;
-    esac
-  fi
-
-  case "${pkgname}" in
-    "winesync")
-      export _provide_nondkms=false
-      sed -i 's|_provide_nondkms=true|_provide_nondkms=false|g' PKGBUILD
-      ;;
-  esac
-}
 
 built() {
   pkgname="${1}"
@@ -94,7 +66,7 @@ built() {
 
   # run custom patches
   echo "[i] Running custom patches..."
-  patches "${pkgname}"
+  patches
 
   echo "[i] Installing dependencies..."
   for (( i=0; i<15; i++ ))
@@ -126,11 +98,6 @@ built() {
 
   echo "::endgroup::"
 }
-
-for file in "${PACKAGES_TO_BUILD_DIR}"/*
-do
-  built "$(basename ${file})"
-done
 
 if [ -f "${SRC_DIR}/fail_built.txt" ]
 then
