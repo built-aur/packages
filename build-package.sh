@@ -29,13 +29,7 @@ cd "${SRC_DIR}"
 PACKAGES_TO_BUILD_DIR="${TMP_DIR}/tobuilt"
 mkdir -p "${PACKAGES_TO_BUILD_DIR}"
 
-# check which packages to build
-while IFS= read -r pkg
-do
-  built "${pkg}"
-done < "${SRC_DIR}/built_packages.txt"
-
-built() {
+run-build() {
   pkgname="${1}"
   pkgdir="${SRC_DIR}/packages/${pkgname}"
 
@@ -98,6 +92,12 @@ built() {
 
   echo "::endgroup::"
 }
+
+# check which packages to build
+while IFS= read -r pkg
+do
+  run-build "${pkg}"
+done < "${SRC_DIR}/built_packages.txt"
 
 if [ -f "${SRC_DIR}/fail_built.txt" ]
 then
