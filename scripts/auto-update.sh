@@ -67,7 +67,7 @@ update-package() {
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
         git add "${pkgdir}/built.conf"
-        git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
+        git commit -m "upgpkg(${pkgname}): ${latest_version}"
       fi
 
       echo "[i] Updated '${pkgname}' to '${latest_version}'"
@@ -129,7 +129,7 @@ update-package() {
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
         git add "${pkgdir}/PKGBUILD"
-        git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
+        git commit -m "upgpkg(${pkgname}): ${latest_version}"
       fi
 
       echo "[i] Updated '${pkgname}' to '${latest_version}'"
@@ -171,7 +171,7 @@ update-package() {
       if [ "${GIT_COMMIT_PACKAGES}" = "true" ]
       then
         git add "${pkgdir}/PKGBUILD"
-        git commit -m "upgpkg: '${pkgname}' to '${latest_version}'"
+        git commit -m "upgpkg(${pkgname}): ${latest_version}"
       fi
 
       echo "[i] Updated '${pkgname}' to '${latest_version}'"
