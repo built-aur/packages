@@ -17,7 +17,7 @@ source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}/${pkgname}-v${pk
         "${pkgname%-*}.service"
         "${pkgname%-*}.sysusers")
 sha256sums=('4531a31c0c095fcae18fdef0157f1e2a6694408abbcff6789c8f3cd6ab2c3ca0'
-            'b4c7a9fb3084f15f091b6d85ca641470c5056da622c064b61e0708f2d886841e'
+            'SKIP'
             'd8f499302fb2b642fe02586c81c410a299e0a6e133aef1cc1c783bcdcb3f44f6')
 
 prepare() {
