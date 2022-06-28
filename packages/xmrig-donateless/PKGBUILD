@@ -1,0 +1,44 @@
+# Maintainer: MedzikUser <nivua1fn@duck.com>
+pkgname='xmrig-donateless'
+pkgver="6.18.0"
+provides=("xmrig=${pkgver}")
+conflicts=('xmrig')
+pkgrel=2
+pkgdesc='RandomX, KawPow, CryptoNight, AstroBWT and GhostRider unified CPU/GPU miner and RandomX benchmark - No Donate Version'
+arch=('x86_64')
+url="https://github.com/xmrig/xmrig"
+license=('MIT')
+depends=('libuv' 'libmicrohttpd' 'openssl' 'hwloc')
+makedepends=('cmake' 'sed')
+optdepends=('ocl-icd: AMD GPU mining'
+            'opencl-headers: AMD GPU mining'
+            'cuda: nVidia GPU mining')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
+        "${pkgname}.service"
+        "${pkgname}.sysusers")
+sha256sums=('4531a31c0c095fcae18fdef0157f1e2a6694408abbcff6789c8f3cd6ab2c3ca0'
+            'b4c7a9fb3084f15f091b6d85ca641470c5056da622c064b61e0708f2d886841e'
+            'd8f499302fb2b642fe02586c81c410a299e0a6e133aef1cc1c783bcdcb3f44f6')
+
+prepare() {
+  mkdir "${pkgname}-${pkgver}/build"
+
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  sed -i 's/constexpr const int kDefaultDonateLevel = 1;/constexpr const int kDefaultDonateLevel = 0;/g' src/donate.h
+  sed -i 's/constexpr const int kMinimumDonateLevel = 1;/constexpr const int kMinimumDonateLevel = 0;/g' src/donate.h
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}/build"
+  cmake .. -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm 775 "build-xmrig-donateless/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 "src/config.json" "${pkgdir}/etc/${pkgname}/xmrig.conf"
+  install -Dm 644 "${srcdir}/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}@.service"
+  install -Dm 0644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+}
