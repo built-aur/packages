@@ -4,14 +4,14 @@ provides=('vscodium')
 conflicts=('vscodium')
 pkgdesc='Free/Libre Open Source Software Binaries of VSCode without MS branding/telemetry/licensing'
 pkgver="1.69.0"
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 microsofturl='https://github.com/microsoft/vscode'
 url="https://github.com/VSCodium/vscodium"
 license=('MIT')
 
 # Important: Remember to check https://github.com/microsoft/vscode/blob/master/.yarnrc (choose correct tag) for target electron version
-_electron='electron17'
+_electron='electron18'
 depends=("${_electron}" 'libsecret' 'libx11' 'libxkbfile' 'ripgrep')
 makedepends=('nodejs-lts-gallium' 'npm' 'yarn' 'gulp' 'jq' 'libxdmcp' 'git' 'git-lfs' 'patch' 'python' 'pkg-config')
 
