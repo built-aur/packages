@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Commit changes to Git.
+# Enable commit changes to git
 : "${GIT_COMMIT_PACKAGES:=false}"
-# Push changes to remote.
+# Enable push changes to git
 : "${GIT_PUSH_PACKAGES:=false}"
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
@@ -25,6 +25,8 @@ compare_version() {
 update-package() {
   local pkgdir="${1}"
   local pkgname="$(basename ${pkgdir})"
+
+  trap 'echo "Error code $? occurred in package ${pkgname} on line ${LINENO}" 1>&2 ; return 1' ERR
 
   if [ ! -f "${pkgdir}/built.conf" ]
   then
