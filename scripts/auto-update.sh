@@ -26,7 +26,7 @@ update-package() {
   local pkgdir="${1}"
   local pkgname="$(basename ${pkgdir})"
 
-  trap 'echo "Error code $? occurred in package ${pkgname} on line ${LINENO}" 1>&2 ; return 1' ERR
+  trap 'echo "Error code $? occurred in package ${pkgname} on line ${LINENO}" 1>&2  ; return 1' ERR
 
   if [ ! -f "${pkgdir}/built.conf" ]
   then
