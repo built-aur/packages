@@ -3,7 +3,7 @@ _pkgname='netlify-cli'
 pkgname='netlify'
 provides=("${pkgname}-cli")
 conflicts=("${pkgname}-cli")
-pkgver="11.4.0"
+pkgver="11.5.0"
 pkgrel=1
 pkgdesc='Create, deploy, and delete new sites hosted on Netlify straight from your terminal'
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('npm')
 _file="${_pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${_pkgname}/-/${_file}")
 noextract=("$_file")
-sha256sums=('9a65e085d3c6843366a124fe103f3e40dc7c57b7e9f65579233336d7909cc44d')
+sha256sums=('cd98aac6db3108569ebbce9d4bde0cd6966f0dfd2cd0026b9d8ebecb60167314')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
