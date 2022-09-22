@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='gatsby-cli'
-pkgver="4.23.0"
+pkgver="4.23.1"
 pkgrel=1
 pkgdesc='Gatsby command-line interface for creating new sites and running Gatsby commands'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('npm')
 _file="${pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
 noextract=("${_file}")
-sha256sums=('c2c1e43c34898223c3a349f4d94420cb6cc3befbb464c0a1be098ae837fc0733')
+sha256sums=('b5a3b77497d97167c67eeceb786b6dcc713ad07807b29b5761f3137bb9193886')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
