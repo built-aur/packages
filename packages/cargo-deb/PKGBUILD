@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='cargo-deb'
-pkgver="1.39.3"
+pkgver="1.40.1"
 pkgrel=1
 pkgdesc='Cargo subcommand that generates Debian packages'
 arch=('x86_64')
@@ -8,7 +8,7 @@ url="https://github.com/kornelski/cargo-deb"
 license=('MIT')
 makedepends=('cargo')
 source=("${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('4d0bd50f76ec765660a55157f8482e04b313231d608fc99105484121d105b8e3')
+sha256sums=('d78366c2a601db45ac7e379bd69e48ec82d34f2de8acfff5d68bf033b2ba9a90')
 
 build() {
   cd "${pkgname}-${pkgver}"
