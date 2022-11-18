@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='lapce'
-pkgver="0.2.3"
+pkgver="0.2.4"
 pkgrel=1
 pkgdesc='Lightning-fast and Powerful Code Editor written in Rust'
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('Apache')
 depends=('gcc-libs' 'libxcb' 'expat' 'freetype2' 'libxkbcommon' 'fontconfig' 'gtk3')
 makedepends=('rust' 'python' 'cmake')
 source=("${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('bbed9ef567778b4a12f5a9997e6bb5a5f2648c5fd57c90ff3bd1223b288e060a')
+sha256sums=('76e6a9d91988b41815e3c2a94be7f4ba60966b8cc2355da7fcd17937e2cc1d7e')
 options=('!lto')
 
 build() {
