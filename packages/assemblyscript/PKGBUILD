@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='assemblyscript'
 conflicts=('typescript')
-pkgver="0.24.1"
+pkgver="0.25.0"
 pkgrel=1
 pkgdesc='TypeScript to WebAssembly compiler'
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('npm')
 _file="${pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
 noextract=("$_file")
-sha256sums=('46c79d8c576cff4e904f526d95e0466dd6227eedd46f553a17bc4b84b59ad453')
+sha256sums=('ea7c25ffdfd391ca5da5b503cf1abe88f3db9774fa2f2f9d86a34e09ea1696c0')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
