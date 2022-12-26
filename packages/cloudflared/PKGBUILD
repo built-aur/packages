@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='cloudflared'
-pkgver="2022.12.0"
+pkgver="2022.12.1"
 pkgrel=1
 pkgdesc='Cloudflare Tunnel client (formerly Argo Tunnel)'
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('Apache')
 depends=('glibc')
 makedepends=('go')
 source=("${url}/archive/${pkgver}.tar.gz")
-sha256sums=('0c7f3f1d48c5b676e2555c8dea2168f09c7500993cbfc351ddb743eee0744630')
+sha256sums=('8cc5c41ea98a9d72687d5f62e733a9033191e834e4fa9b2aecc557f0ccfbda56')
 
 build() {
   cd "${pkgname}-${pkgver}"
