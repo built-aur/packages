@@ -1,7 +1,7 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 _npmname='@angular/cli'
 pkgname='angular-cli'
-pkgver="15.1.1"
+pkgver="15.1.2"
 pkgrel=1
 pkgdesc='CLI tool for Angular'
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('npm')
 _file="cli-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${_npmname}/-/${_file}")
 noextract=("${_file}")
-sha256sums=('12aade63c90bbe9ff8c93a0761a069e5790d8fecaf8b511c3748f2db1471e96a')
+sha256sums=('ab8a81ea81c6995f897d4b0aca7c6d14e67e7fb656cd93ce56539d5358a32627')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
