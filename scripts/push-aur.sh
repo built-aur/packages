@@ -53,6 +53,8 @@ push-aur() {
     eval "$(parse-conf ${pkgdir})"
 
     cd "${SRC_DIR}"
+    
+    sudo chown -R $(whoami) .
 
     if [ -n "${AUR_PUSH}" ]
     then
