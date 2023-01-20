@@ -10,4 +10,6 @@ chown -vR build:build /home/build
 chmod -vR 600 /home/build/.ssh/*
 echo '::endgroup::'
 
+git config --global --add safe.directory /__w/packages/packages
+
 exec su -c 'bash -c ./scripts/push-aur.sh' build
