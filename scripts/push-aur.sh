@@ -58,22 +58,22 @@ push-aur() {
     then
       echo "==> ${pkgname}"
 
-      echo '::group::Cloning AUR package into /tmp/local-repo'
-      git clone -v "ssh://aur@aur.archlinux.org/${pkgname}.git" /tmp/local-repo
+      echo '::group::Cloning AUR package into aur-repo'
+      git clone -v "ssh://aur@aur.archlinux.org/${pkgname}.git" aur-repo
       echo '::endgroup::'
 
-      echo '::group::Copying files into /tmp/local-repo'
-      cp -r "${pkgdir}"/* /tmp/local-repo/
-      rm -rf /tmp/local-repo/built.conf
+      echo '::group::Copying files into aur-repo'
+      cp -r "${pkgdir}"/* aur-repo
+      rm -rf aur-repo/built.conf
       echo '::endgroup::'
 
       echo '::group::Generating .SRCINFO'
-      cd /tmp/local-repo
+      cd aur-repo
       makepkg --printsrcinfo >.SRCINFO
       echo '::endgroup::'
 
       echo '::group::Committing files to the repository'
-      git add /tmp/local-repo
+      git add .
       git commit -m "sync with built-aur"
       echo '::endgroup::'
 
@@ -82,7 +82,8 @@ push-aur() {
       echo '::endgroup::'
 
       echo '::group::Cleanup'
-      rm -rf /tmp/local-repo/
+      cd ..
+      rm -rf aur-repo
       echo '::endgroup::'
       return 0
     fi
