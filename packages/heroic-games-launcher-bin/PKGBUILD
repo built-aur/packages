@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='heroic-games-launcher-bin'
-pkgver="2.6.0"
+pkgver="2.6.1"
 pkgrel=1
 pkgdesc='A Native GOG and Epic Games Launcher for Linux'
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('Apache')
 depends=('fuse2' 'gawk' 'zstd')
 _filename="heroic-$pkgver.pacman"
 source=("${url}/releases/download/v${pkgver}/${_filename}")
-sha256sums=('7792625421704af2eb1832eb1f6807ac2d88553b7d6e074f7c09de03d6e9a862')
+sha256sums=('21bc8f9fcfac2e08b69b25ab01c20cddff387667644bc8082208a82b35dd49a4')
 options=('!strip')
 
 package() {
