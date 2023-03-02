@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='aws-cdk'
-pkgver="2.66.1"
+pkgver="2.67.0"
 pkgrel=1
 pkgdesc='CDK Toolkit, the command line tool for CDK app'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('npm')
 _file="${pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
 noextract=("${_file}")
-sha256sums=('fde67b7e93a8c0ef81b6ff1acb6b0eda37ae0509f966e72b8b92edf02dc67ebf')
+sha256sums=('23fd01b28d945eb6af155a12e171f2d96de41e2187d29a459baa4081fe8af941')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
