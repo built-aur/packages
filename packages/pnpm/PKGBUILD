@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='pnpm'
-pkgver="7.29.0"
+pkgver="7.29.1"
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('npm')
 _file="${pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
 noextract=("$_file")
-sha256sums=('aa7e1646990108fb339ef6c16ccb8ab88480e657b6e1839b24ac3fe58fe24cff')
+sha256sums=('bfd5b9a62ebd51491635d83ae2d7d18aea135721b9205a3e29dc4c2356e6d504')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
