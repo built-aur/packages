@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='nodemon'
-pkgver="2.0.21"
+pkgver="2.0.22"
 pkgrel=1
 pkgdesc='Simple monitor script for use during development of a Node.js app'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('npm')
 _file="${pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
 noextract=("${_file}")
-sha256sums=('50724ae2ac97ea566507b0d8790773d08330541cc5b26f8658025c4dd6d2a084')
+sha256sums=('e7272dc79f65977d00461defa82df74bd93560e85961fcc1601abd80dcfaefa5')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
