@@ -2,12 +2,13 @@
 
 pkgname=calamares
 pkgver=3.2.49.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Universal linux distro graphical installer'
 arch=('x86_64')
 license=('GPL3')
 url='https://calamares.io/'
-depends=('binutils' 'fakeroot' 'gcc' 'boost' 'patch' 'qt5-tools' 'yaml-cpp' 'ack' 'kpmcore' 'qt5-location' 'icu' 'qt5-declarative' 'qt5-translations' 'qt5-xmlpatterns' 'kiconthemes' 'kservice' 'kio' 'kparts' 'cmake' 'autoconf' 'automake' 'bison' 'flex' 'git' 'libtool' 'm4' 'make' 'extra-cmake-modules' 'appstream-qt' 'squashfs-tools' 'fish' 'libpwquality' 'python3' 'python-qt.py' 'python-qtpy' 'qt5-webengine' 'python-pip')
+depends=('binutils' 'fakeroot' 'qt5-tools' 'kpmcore' 'qt5-location' 'icu' 'qt5-declarative' 'qt5-translations' 'qt5-xmlpatterns' 'kiconthemes' 'kservice' 'kio' 'kparts' 'flex' 'appstream-qt' 'squashfs-tools' 'fish' 'libpwquality' 'qt5-webengine' 'python-qtpy' 'python-qt.py' 'pytjon3'
+makedepends=('gcc' 'boost' 'patch' 'yaml-cpp' 'ack' 'cmake' 'autoconf' 'automake' 'bison' 'git' 'libtool' 'm4' 'make' 'extra-cmake-modules' 'python-pip')
 source=("https://github.com/calamares/calamares/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('86bdceb90eb81d42596b780ccd99385002e2b8d45d8fae836156d37b5122d020')
 
