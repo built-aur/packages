@@ -35,5 +35,5 @@ build() {
 package() {
   cd $pkgname-$pkgver/build
   make DESTDIR="$pkgdir/" install
-  rf "$pkgdir/etc/calamares/*"
+  rm -rf "$pkgdir/etc/calamares/*"
 }
