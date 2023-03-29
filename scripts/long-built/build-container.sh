@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -x
 
 echo "::group::Generating source archive..."
 
@@ -42,6 +42,7 @@ sudo chown build -R .
 # Generate archive with all required sources for the build
 # This either includes local or downloads files using an url
 su -c "makepkg --allsource --skippgpcheck" build
+ls -lah .
 mv ./*.src.tar.gz "${ROOT_DIR}"
 
 cd "${ROOT_DIR}"
