@@ -16,7 +16,7 @@ on:
 jobs:
   build-container:
     runs-on: ubuntu-latest
-    container: ghcr.io/archlinux-pkg/packages:latest
+    container: ghcr.io/built-aur/packages:latest
     steps:
       - name: work around permission issue
         run: git config --global --add safe.directory /__w/packages/packages
