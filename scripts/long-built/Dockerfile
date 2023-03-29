@@ -11,6 +11,8 @@ COPY *.src.tar.gz /home/build/
 RUN chown -R build /home/build
 RUN tar xf /home/build/*.src.tar.gz -C /home/build --strip 1 && rm /home/build/*.src.tar.gz
 
+RUN pacman -Sy archlinux-keyring
+
 RUN pacman -Syu --noconfirm && \
     su -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm" build && \
     su -c "cd && makepkg --nobuild --noextract --syncdeps --noconfirm" build && \
