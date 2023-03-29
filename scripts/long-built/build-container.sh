@@ -42,14 +42,13 @@ sudo chown build -R .
 # Generate archive with all required sources for the build
 # This either includes local or downloads files using an url
 su -c "makepkg --allsource --skippgpcheck" build
-ls -lah .
 mv ./*.src.tar.gz "${ROOT_DIR}"
 
 cd "${ROOT_DIR}"
 
 echo "::endgroup::"
 
-VERSION="$(compgen -G "*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
+VERSION="$(compgen -G "${ROOT_DIR}/*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
 NAME="packages"
 ID="$(echo "$REGISTRY"/$NAME | tr '[A-Z]' '[a-z]')"
 REF="$(echo "$GH_REF" | sed -e 's,.*/\(.*\),\1,')"
