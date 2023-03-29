@@ -48,7 +48,7 @@ cd "${ROOT_DIR}"
 
 echo "::endgroup::"
 
-VERSION="$(compgen -G "${ROOT_DIR}/*.src.tar.gz" | grep -Po '([\d\.]+-\d*)')"
+VERSION="$(date +%s)"
 NAME="packages"
 ID="$(echo "$REGISTRY"/$NAME | tr '[A-Z]' '[a-z]')"
 REF="$(echo "$GH_REF" | sed -e 's,.*/\(.*\),\1,')"
