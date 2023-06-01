@@ -1,6 +1,6 @@
 # Maintainer: MedzikUser <nivua1fn@duck.com>
 pkgname='firebase-tools'
-pkgver="12.2.1"
+pkgver="12.3.0"
 pkgrel=1
 pkgdesc='The Firebase Command Line Tools'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('npm')
 _file="${pkgname}-${pkgver}.tgz"
 source=("https://registry.npmjs.org/${pkgname}/-/${_file}")
 noextract=("${_file}")
-sha256sums=('a56337dbfecc998dfb2b134313362c9a778877fc594dd3331d3f4f48385f4c77')
+sha256sums=('b39dc888f69725f4387ce5ea27cbc4c4692a934c48f8d9e9e12af86385d24b3b')
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "${_file}"
